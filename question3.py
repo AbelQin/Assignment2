@@ -22,3 +22,10 @@ def draw_edge(length, depth):
 
         turtle.left(60)          # restore direction
         draw_edge(length, depth - 1)
+        
+        # ---------------- Draw Polygon ----------------
+def draw_polygon(sides, length, depth):
+    angle = 360 / sides
+    for _ in range(sides):
+        draw_edge(length, depth)
+        turtle.right(angle)
