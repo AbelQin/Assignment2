@@ -66,3 +66,45 @@ def read_temperature_data():
                                 season_temperatures[season].append(temperature)
 
     return season_temperatures, station_temperatures
+
+
+# Calculate standard deviation (basic formula)
+def standard_deviation(values):
+    mean = sum(values) / len(values)
+    total = 0
+
+    for v in values:
+        total += (v - mean) ** 2
+
+    return math.sqrt(total / len(values))
+
+
+# Find most stable and most variable stations
+def calculate_temperature_stability(station_temperatures):
+    min_std = float("inf")
+    max_std = -1
+
+    most_stable = []
+    most_variable = []
+
+    for station in station_temperatures:
+        std = standard_deviation(station_temperatures[station])
+
+        if std < min_std:
+            min_std = std
+            most_stable = [(station, std)]
+        elif std == min_std:
+            most_stable.append((station, std))
+
+        if std > max_std:
+            max_std = std
+            most_variable = [(station, std)]
+        elif std == max_std:
+            most_variable.append((station, std))
+
+    with open("temperature_stability_stations.txt", "w") as f:
+        for s, std in most_stable:
+            f.write(f"Most Stable: Station {s}: StdDev {std:.2f}°C\n")
+
+        for s, std in most_variable:
+            f.write(f"Most Variable: Station {s}: StdDev {std:.2f}°C\n")
