@@ -32,9 +32,10 @@ def encrypt_char(ch, shift1, shift2):
     # Other characters are not changed
     else:
         return ch
-    
 
     # This function decrypts ONE character
+
+
 # It tries all possible letters and finds which one matches
 # This simple method makes sure the decryption is always correct
 def decrypt_char(ch, shift1, shift2):
@@ -55,6 +56,7 @@ def decrypt_char(ch, shift1, shift2):
 
     # Other characters remain unchanged
     return ch
+
 
 # Read raw_text.txt, encrypt it, and save to encrypted_text.txt
 def encrypt_text(shift1, shift2):
@@ -80,3 +82,29 @@ def decrypt_text(shift1, shift2):
 
     with open("decrypted_text.txt", "w", encoding="utf-8") as f:
         f.write(decrypted);
+
+        # This function checks if decryption is successful
+        def verify_decryption():
+            with open("raw_text.txt", "r", encoding="utf-8") as f:
+                original = f.read()
+
+            with open("decrypted_text.txt", "r", encoding="utf-8") as f:
+                decrypted = f.read()
+            if original == decrypted:
+
+                print("Decryption successful! The files match.")
+            else:
+                print("Decryption failed! The files do not match.")
+
+        # ===============================
+        # Main Program
+        # ===============================
+
+        # Ask user to input shift values and convert them to integers
+        shift1 = int(input("Enter shift1: "))
+        shift2 = int(input("Enter shift2: "))
+
+        # Run encryption, decryption and verification
+        encrypt_text(shift1, shift2)
+        decrypt_text(shift1, shift2)
+        verify_decryption()
