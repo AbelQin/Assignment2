@@ -68,43 +68,33 @@ def read_temperature_data():
     return season_temperatures, station_temperatures
 
 
-# Calculate standard deviation (basic formula)
-def standard_deviation(values):
-    mean = sum(values) / len(values)
-    total = 0
-
-    for v in values:
-        total += (v - mean) ** 2
-
-    return math.sqrt(total / len(values))
+# Calculate average temperature for each season
+def calculate_season_average(season_temperatures):
+    with open("average_temp.txt", "w") as f:
+        for season in season_temperatures:
+            temps = season_temperatures[season]
+            average = sum(temps) / len(temps)
+            f.write(f"{season}: {average:.2f}°C\n")
 
 
-# Find most stable and most variable stations
-def calculate_temperature_stability(station_temperatures):
-    min_std = float("inf")
-    max_std = -1
-
-    most_stable = []
-    most_variable = []
+# Find station(s) with the largest temperature range
+def calculate_largest_range(station_temperatures):
+    max_range = -1
+    result = []
 
     for station in station_temperatures:
-        std = standard_deviation(station_temperatures[station])
+        temps = station_temperatures[station]
+        temp_range = max(temps) - min(temps)
 
-        if std < min_std:
-            min_std = std
-            most_stable = [(station, std)]
-        elif std == min_std:
-            most_stable.append((station, std))
+        if temp_range > max_range:
+            max_range = temp_range
+            result = [(station, max(temps), min(temps))]
+        elif temp_range == max_range:
+            result.append((station, max(temps), min(temps)))
 
-        if std > max_std:
-            max_std = std
-            most_variable = [(station, std)]
-        elif std == max_std:
-            most_variable.append((station, std))
-
-    with open("temperature_stability_stations.txt", "w") as f:
-        for s, std in most_stable:
-            f.write(f"Most Stable: Station {s}: StdDev {std:.2f}°C\n")
-
-        for s, std in most_variable:
-            f.write(f"Most Variable: Station {s}: StdDev {std:.2f}°C\n")
+    with open("largest_temp_range_station.txt", "w") as f:
+        for station, t_max, t_min in result:
+            f.write(
+                f"Station {station}: Range {t_max - t_min:.2f}°C "
+                f"(Max: {t_max:.2f}°C, Min: {t_min:.2f}°C)\n"
+            )
