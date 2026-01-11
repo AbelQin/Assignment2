@@ -41,3 +41,18 @@ def main():
     turtle.speed(0)
     turtle.hideturtle()
     turtle.tracer(False)
+
+    # Position turtle nicely
+    turtle.penup()
+    turtle.goto(-length / 2, length / 3)
+    turtle.pendown()
+
+    # Draw pattern
+    draw_polygon(sides, length, depth)
+
+    turtle.tracer(True)
+    turtle.done()
+
+
+# Run program
+main()
