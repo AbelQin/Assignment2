@@ -32,3 +32,26 @@ def encrypt_char(ch, shift1, shift2):
     # Other characters are not changed
     else:
         return ch
+    
+
+    # This function decrypts ONE character
+# It tries all possible letters and finds which one matches
+# This simple method makes sure the decryption is always correct
+def decrypt_char(ch, shift1, shift2):
+    # For lowercase letters
+    if ch.islower():
+        for i in range(26):
+            original = chr(i + ord('a'))
+            # Check which original letter becomes ch after encryption
+            if encrypt_char(original, shift1, shift2) == ch:
+                return original
+
+    # For uppercase letters
+    elif ch.isupper():
+        for i in range(26):
+            original = chr(i + ord('A'))
+            if encrypt_char(original, shift1, shift2) == ch:
+                return original
+
+    # Other characters remain unchanged
+    return ch
