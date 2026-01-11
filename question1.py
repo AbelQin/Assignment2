@@ -79,4 +79,4 @@ def decrypt_text(shift1, shift2):
         decrypted += decrypt_char(ch, shift1, shift2)
 
     with open("decrypted_text.txt", "w", encoding="utf-8") as f:
-        f.write(decrypted)
+        f.write(decrypted);
