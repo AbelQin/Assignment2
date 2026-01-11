@@ -66,3 +66,35 @@ def read_temperature_data():
                                 season_temperatures[season].append(temperature)
 
     return season_temperatures, station_temperatures
+
+
+# Calculate average temperature for each season
+def calculate_season_average(season_temperatures):
+    with open("average_temp.txt", "w") as f:
+        for season in season_temperatures:
+            temps = season_temperatures[season]
+            average = sum(temps) / len(temps)
+            f.write(f"{season}: {average:.2f}°C\n")
+
+
+# Find station(s) with the largest temperature range
+def calculate_largest_range(station_temperatures):
+    max_range = -1
+    result = []
+
+    for station in station_temperatures:
+        temps = station_temperatures[station]
+        temp_range = max(temps) - min(temps)
+
+        if temp_range > max_range:
+            max_range = temp_range
+            result = [(station, max(temps), min(temps))]
+        elif temp_range == max_range:
+            result.append((station, max(temps), min(temps)))
+
+    with open("largest_temp_range_station.txt", "w") as f:
+        for station, t_max, t_min in result:
+            f.write(
+                f"Station {station}: Range {t_max - t_min:.2f}°C "
+                f"(Max: {t_max:.2f}°C, Min: {t_min:.2f}°C)\n"
+            )
