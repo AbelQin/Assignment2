@@ -55,3 +55,28 @@ def decrypt_char(ch, shift1, shift2):
 
     # Other characters remain unchanged
     return ch
+
+# Read raw_text.txt, encrypt it, and save to encrypted_text.txt
+def encrypt_text(shift1, shift2):
+    with open("raw_text.txt", "r", encoding="utf-8") as f:
+        text = f.read()
+
+    encrypted = ""
+    for ch in text:
+        encrypted += encrypt_char(ch, shift1, shift2)
+
+    with open("encrypted_text.txt", "w", encoding="utf-8") as f:
+        f.write(encrypted)
+
+
+# Read encrypted_text.txt, decrypt it, and save to decrypted_text.txt
+def decrypt_text(shift1, shift2):
+    with open("encrypted_text.txt", "r", encoding="utf-8") as f:
+        text = f.read()
+
+    decrypted = ""
+    for ch in text:
+        decrypted += decrypt_char(ch, shift1, shift2)
+
+    with open("decrypted_text.txt", "w", encoding="utf-8") as f:
+        f.write(decrypted);
