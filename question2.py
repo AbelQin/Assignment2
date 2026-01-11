@@ -139,3 +139,14 @@ def calculate_temperature_stability(station_temperatures):
 
         for s, std in most_variable:
             f.write(f"Most Variable: Station {s}: StdDev {std:.2f}°C\n")
+            # ===============================
+# Main Program
+# ===============================
+
+season_data, station_data = read_temperature_data()
+
+calculate_season_average(season_data)
+calculate_largest_range(station_data)
+calculate_temperature_stability(station_data)
+
+print("Question 2 completed successfully.")
