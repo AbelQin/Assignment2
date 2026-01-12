@@ -5,7 +5,7 @@ import csv
 import math
 
 # Folder where all temperature csv files are stored
-DATA_FOLDER = "temperatures"
+DATA_FOLDER = "question2/temperatures"
 
 # Month names used in the csv files
 MONTHS = [
@@ -32,7 +32,7 @@ def read_temperature_data():
     }
 
     station_temperatures = {}
-
+    print(os.getcwd())
     # Go through all files in temperatures folder
     for file_name in os.listdir(DATA_FOLDER):
         if file_name.endswith(".csv"):
@@ -70,7 +70,7 @@ def read_temperature_data():
 
 # Calculate average temperature for each season
 def calculate_season_average(season_temperatures):
-    with open("average_temp.txt", "w") as f:
+    with open("question2/average_temp.txt", "w",encoding="utf-8") as f:
         for season in season_temperatures:
             temps = season_temperatures[season]
             average = sum(temps) / len(temps)
@@ -92,7 +92,7 @@ def calculate_largest_range(station_temperatures):
         elif temp_range == max_range:
             result.append((station, max(temps), min(temps)))
 
-    with open("largest_temp_range_station.txt", "w") as f:
+    with open("question2/largest_temp_range_station.txt", "w",encoding="utf-8") as f:
         for station, t_max, t_min in result:
             f.write(
                 f"Station {station}: Range {t_max - t_min:.2f}°C "
@@ -133,7 +133,7 @@ def calculate_temperature_stability(station_temperatures):
         elif std == max_std:
             most_variable.append((station, std))
 
-    with open("temperature_stability_stations.txt", "w") as f:
+    with open("question2/temperature_stability_stations.txt", "w",encoding="utf-8") as f:
         for s, std in most_stable:
             f.write(f"Most Stable: Station {s}: StdDev {std:.2f}°C\n")
 

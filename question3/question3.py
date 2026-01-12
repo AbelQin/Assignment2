@@ -14,21 +14,20 @@ def draw_edge(length, depth):
 
         draw_edge(length, depth - 1)
 
-        turtle.left(60)          # inward turn
+        turtle.right(60)          # inward turn
         draw_edge(length, depth - 1)
 
-        turtle.right(120)        # peak of inward triangle
+        turtle.left(120)        # peak of inward triangle
         draw_edge(length, depth - 1)
 
-        turtle.left(60)          # restore direction
+        turtle.right(60)          # restore direction
         draw_edge(length, depth - 1)
         
         # ---------------- Draw Polygon ----------------
 def draw_polygon(sides, length, depth):
-    angle = 360 / sides
     for _ in range(sides):
         draw_edge(length, depth)
-        turtle.right(angle)
+        turtle.right(360/sides)
         # ---------------- Main Program ----------------
 def main():
     # User input
@@ -37,14 +36,15 @@ def main():
     depth = int(input("Enter the recursion depth: "))
 
     # Turtle setup
-    turtle.setup(width=900, height=900)
+    turtle.setup(900, 900)
     turtle.speed(0)
     turtle.hideturtle()
     turtle.tracer(False)
 
     # Position turtle nicely
     turtle.penup()
-    turtle.goto(-length / 2, length / 3)
+    turtle.goto(-length / 2, length / 2)
+    turtle.setheading(0)
     turtle.pendown()
 
     # Draw pattern
